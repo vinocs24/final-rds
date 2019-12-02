@@ -5,7 +5,7 @@ variable "region" {
 
 variable "key_name" {
   description = "SSH key name to access the EC2 instances"
-  default     = "jen_key"
+  default     = "rds-key"
 }
 
 variable "vpc_cidr_block" {
@@ -30,7 +30,7 @@ variable "availability_zones" {
 
 variable "ami" {
   description = "EC2 Instances AMIs"
-  default = "ami-c7a451a7"
+  default = "ami-08d489468314a58df"
 }
 
 variable "instance_type" {
