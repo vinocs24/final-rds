@@ -23,7 +23,7 @@ resource "aws_internet_gateway" "default" {
 resource "aws_subnet" "wp-public-tf" {
     vpc_id            = aws_vpc.default.id
     cidr_block        = var.public_subnet_cidr_block
-    availability_zone = "us-east-1a"
+    availability_zone = "us-west-2a"
 
     tags = {
        Name = "wp-public-tf"
@@ -33,7 +33,7 @@ resource "aws_subnet" "wp-public-tf" {
 resource "aws_subnet" "wp-private-tf" {
     vpc_id            = aws_vpc.default.id
     cidr_block        = var.private_subnet_cidr_block
-    availability_zone = "us-east-1b"
+    availability_zone = "us-west-2b"
 
     tags = {
        Name = "wp-private-tf"
@@ -66,7 +66,7 @@ resource "aws_route_table_association" "wp-public-tf" {
 resource "aws_instance" "ec2-instance" {
     ami                         = var.ami
     instance_type               = var.instance_type
-    availability_zone           = "us-east-1a"
+    availability_zone           = "us-west-2a"
     subnet_id                   = aws_subnet.wp-public-tf.id
     key_name                    = var.key_name
     associate_public_ip_address = true
