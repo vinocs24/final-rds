@@ -8,7 +8,7 @@ resource "aws_db_instance" "wordpress" {
     identifier             = "wordpress-tf"
     allocated_storage      = 5
     engine                 = "mysql"
-    engine_version         = "5.7.10"
+    engine_version         = "5.7.22"
     port                   = "3306"
     instance_class         = var.db_instance_type
     name                   = var.db_name
