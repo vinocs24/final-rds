@@ -18,17 +18,26 @@ resource "aws_elb" "default" {
         interval            = 30
     }
 
+    instances                   = aws_instance.webservers.*.id
+    cross_zone_load_balancing   = true
+    idle_timeout                = 100
+    connection_draining         = true
+    connection_draining_timeout = 300
+   
     tags = {
         Name = "wp-elb-tf"
     }
 }
 
-resource "aws_lb_cookie_stickiness_policy" "wp-elb-tf-policy" {
-    name                     = "wp-elb-tf-policy"
-    load_balancer            = aws_elb.default.id
-    lb_port                  = 80
-    cookie_expiration_period = 600
-}
+
+
+
+#resource "aws_lb_cookie_stickiness_policy" "wp-elb-tf-policy" {
+  #  name                     = "wp-elb-tf-policy"
+  #  load_balancer            = aws_elb.default.id
+  #  lb_port                  = 80
+  #  cookie_expiration_period = 600
+#}
 
 
 output "elb_dns" {
