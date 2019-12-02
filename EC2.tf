@@ -64,7 +64,7 @@ resource "aws_route_table_association" "wp-public-tf" {
 # EC2 Instances
 
 resource "aws_instance" "ec2-instance" {
-    ami                         = lookup(var.ami, var.region)
+    ami                         = var.ami
     instance_type               = var.instance_type
     availability_zone           = "us-east-1a"
     subnet_id                   = aws_subnet.wp-public-tf.id
@@ -117,14 +117,14 @@ resource "aws_security_group" "wp-db-sg-tf" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = ["${var.vpc_cidr_block}"]
+    cidr_blocks = [var.vpc_cidr_block]
   }
 
   ingress {
     from_port   = 8
     to_port     = 0
     protocol    = "icmp"
-    cidr_blocks = ["${var.vpc_cidr_block}"]
+    cidr_blocks = [var.vpc_cidr_block]
   }
 
   egress {
