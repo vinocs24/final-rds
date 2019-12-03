@@ -5,7 +5,7 @@ resource "aws_db_subnet_group" "default" {
 }
 
 resource "aws_db_instance" "wordpress" {
-    identifier             = "wordpress-terra"
+    identifier             = "wordpress-tf"
     allocated_storage      = 5
     engine                 = "mysql"
     engine_version         = "5.7.22"
