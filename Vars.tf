@@ -45,17 +45,17 @@ variable "db_instance_type" {
 
 variable "db_name" {
   description = "RDS DB name"
-  default = "wordpressdb"
+  default = "terraform"
 }
 
 variable "db_user" {
   description = "RDS DB username"
-  default = "example"
+  default = "vinoth"
 }
 
 variable "db_password" {
   description = "RDS DB password"
-  default = "Qwerty12345-"
+  default = "Vinoth@123"
 }
 
 variable "wp_title" {
