@@ -72,11 +72,6 @@ resource "aws_instance" "ec2-instance" {
     associate_public_ip_address = true
     security_groups             = [aws_security_group.wp-sg-tf.id]
     user_data                   = file("installing-components.sh")
-    content     = data.template_file.phpconfig.rendered
-    destination = "/tmp/wp-config.php"
-    inline = [
-      "sudo cp /tmp/wp-config.php /var/www/html/wp-config.php",
-    ]
     tags = {
       Name = "ec2-instance"
     }
