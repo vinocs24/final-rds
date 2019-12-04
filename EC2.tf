@@ -61,6 +61,21 @@ resource "aws_route_table_association" "wp-public-tf" {
 }
 
 
+# PHP file 
+
+data "template_file" "phpconfig" {
+  template = file("conf.wp-config.php")
+
+  vars {
+    db_port = aws_db_instance.mysql.port
+    db_host = aws_db_instance.mysql.address
+    db_user = var.username
+    db_pass = var.password
+    db_name = var.dbname
+  }
+}
+
+
 # EC2 Instances
 
 resource "aws_instance" "ec2-instance" {
@@ -76,6 +91,33 @@ resource "aws_instance" "ec2-instance" {
       Name = "ec2-instance"
     }
 }
+
+
+provisioner "file" {
+    content     = data.template_file.phpconfig.rendered
+    destination = "/tmp/wp-config.php"
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("~/.ssh/id_rsa")
+    }
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo cp /tmp/wp-config.php /var/www/html/wp-config.php",
+    ]
+
+    connection {
+      type        = "ssh"
+      user        = "ec2-user"
+      private_key = file("~/.ssh/id_rsa")
+    }
+  }
+
+
+# SG
 
 resource "aws_security_group" "wp-sg-tf" {
   name        = "wp-instance-tf"
