@@ -65,14 +65,12 @@ resource "aws_route_table_association" "wp-public-tf" {
 
 data "template_file" "phpconfig" {
   template = file("conf.wp-config.php")
-
-  Vars {
-    db_port = aws_db_instance.mysql.port
-    db_host = aws_db_instance.mysql.address
-    db_user = var.username
-    db_pass = var.password
-    db_name = var.dbname
-  }
+  db_port = var.aws_db_instance.mysql.port
+  db_host = var.aws_db_instance.mysql.address
+  db_user = var.username
+  db_pass = var.password
+  db_name = var.dbname
+  
 }
 
 
