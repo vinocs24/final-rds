@@ -61,19 +61,6 @@ resource "aws_route_table_association" "wp-public-tf" {
 }
 
 
-# PHP file 
-
-data "template_file" "phpconfig" {
-  template = file("conf.wp-config.php")
-  db_port = var.aws_db_instance.mysql.port
-  db_host = var.aws_db_instance.mysql.address
-  db_user = var.username
-  db_pass = var.password
-  db_name = var.dbname
-  
-}
-
-
 # EC2 Instances
 
 resource "aws_instance" "ec2-instance" {
